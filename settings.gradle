@@ -1,0 +1,4 @@
+include ':network'
+include ':register'
+include ':app'
+rootProject.name = "NewsApp"

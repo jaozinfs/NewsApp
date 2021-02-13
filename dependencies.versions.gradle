@@ -1,0 +1,28 @@
+ext {
+    final koinVersion = '2.2.2'
+    final materialComponentsVersion = '1.3.0'
+    final navigationVersion = '2.3.3'
+
+    //networkVersions
+    final retrofitVersion = '2.9.0'
+    final retrofitLoggingInterceptorVersion = '4.9.0'
+
+    commonsVersions = [
+            //DI
+            'koin' : "org.koin:koin-android:$koinVersion",
+            'koinViewModel': "org.koin:koin-android-viewmodel:$koinVersion",
+
+            //UI
+            'materialComponents' : "com.google.android.material:material:$materialComponentsVersion",
+            'navigation' : "androidx.navigation:navigation-fragment-ktx:$navigationVersion",
+            'navigationKtx': "androidx.navigation:navigation-ui-ktx:$navigationVersion",
+            'navigationDynimic' : "androidx.navigation:navigation-dynamic-features-fragment:$navigationVersion"
+
+    ]
+
+    networkDependencies = [
+            'retrofit' : "com.squareup.retrofit2:retrofit:$retrofitVersion",
+            'gjson': "com.squareup.retrofit2:converter-gson:$retrofitVersion",
+            'retrofitLogInterceptor': "com.squareup.okhttp3:logging-interceptor:$retrofitLoggingInterceptorVersion"
+    ]
+}
