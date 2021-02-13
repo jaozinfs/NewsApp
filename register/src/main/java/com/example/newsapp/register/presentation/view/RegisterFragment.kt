@@ -19,16 +19,17 @@ import org.koin.android.viewmodel.ext.android.viewModel
 class RegisterFragment : BaseFragment(R.layout.fragment_register) {
 
     private val registerViewModel: RegisterViewModel by viewModel()
-    private val tokenStorage: TokenStorageImpl by inject()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setListeners()
-        observeTokenStorage()
         observeViewModel()
     }
 
     private fun observeViewModel() = with(registerViewModel) {
+        userToken.observe(viewLifecycleOwner, Observer {
+            redirectToLogin(it ?: "")
+        })
         registerState.observe(viewLifecycleOwner, Observer {
             handleState(it)
         })
@@ -66,24 +67,19 @@ class RegisterFragment : BaseFragment(R.layout.fragment_register) {
         }
     }
 
-    private fun observeTokenStorage() {
-        tokenStorage.tokenState.observe(viewLifecycleOwner, Observer {
-            handleUserTokenState(it)
-        })
-    }
 
     private fun handleUserTokenState(userTokenState: UserTokenState) = when (userTokenState) {
         is UserTokenState.UserAuthenticated -> {
-            redirectToLogin()
+
         }
         else -> {
         }
     }
 
-    private fun redirectToLogin() {
+    private fun redirectToLogin(token: String) {
         Log.d(
             "Teste",
-            "Logged with token: ${tokenStorage.userToken}"
+            "Logged with token: $token"
         )
     }
 

@@ -5,6 +5,8 @@ import com.example.newsapp.network.RetrofitClientProvider
 import com.example.newsapp.register.data.UserApi
 import com.example.newsapp.register.data.network.UserRepositoryImpl
 import com.example.newsapp.register.domain.repository.UserRepository
+import com.example.newsapp.register.domain.usecases.GetUserSavedTokenUseCase
+import com.example.newsapp.register.domain.usecases.SaveRegisteredTokenUserCase
 import com.example.newsapp.register.domain.usecases.UserRegisterUseCase
 import com.example.newsapp.register.presentation.viewmodel.RegisterViewModel
 import org.koin.android.viewmodel.dsl.viewModel
@@ -18,5 +20,7 @@ val registerModules = module {
         )
     }
     factory { UserRegisterUseCase(get()) }
-    viewModel { RegisterViewModel(get(), get()) }
+    factory { SaveRegisteredTokenUserCase(get()) }
+    factory { GetUserSavedTokenUseCase(get()) }
+    viewModel { RegisterViewModel(get(), get(), get()) }
 }

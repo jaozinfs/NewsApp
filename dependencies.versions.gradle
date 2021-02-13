@@ -2,15 +2,31 @@ ext {
     final koinVersion = '2.2.2'
     final materialComponentsVersion = '1.3.0'
     final navigationVersion = '2.3.3'
+    final lifecycle_version = '2.2.0'
 
     //networkVersions
     final retrofitVersion = '2.9.0'
     final retrofitLoggingInterceptorVersion = '4.9.0'
 
+    //localVersions
+    final dataStoreVersion = '1.0.0-alpha06'
+
+    //coreVersions
+    final flowVersion = '1.4.2'
+    final timberVersion = '4.7.1'
+
+    coreDependencies = [
+            'koin' : "org.koin:koin-android:$koinVersion",
+            'flow' : "org.jetbrains.kotlinx:kotlinx-coroutines-core:$flowVersion",
+            'timber' : "com.jakewharton.timber:timber:$timberVersion"
+    ]
+
     commonsVersions = [
             //DI
-            'koin' : "org.koin:koin-android:$koinVersion",
             'koinViewModel': "org.koin:koin-android-viewmodel:$koinVersion",
+
+            //kt
+            'livedata-ktx' : "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version",
 
             //UI
             'materialComponents' : "com.google.android.material:material:$materialComponentsVersion",
@@ -24,5 +40,10 @@ ext {
             'retrofit' : "com.squareup.retrofit2:retrofit:$retrofitVersion",
             'gjson': "com.squareup.retrofit2:converter-gson:$retrofitVersion",
             'retrofitLogInterceptor': "com.squareup.okhttp3:logging-interceptor:$retrofitLoggingInterceptorVersion"
+    ]
+
+    localDependencies = [
+            'dataStore': "androidx.datastore:datastore-preferences:$dataStoreVersion"
+
     ]
 }
