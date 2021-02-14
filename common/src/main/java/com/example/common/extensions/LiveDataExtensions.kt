@@ -1,4 +1,4 @@
-package com.example.newsapp.extensions
+package com.example.common.extensions
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

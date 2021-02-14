@@ -5,15 +5,13 @@ import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.lifecycle.Observer
-import com.example.newsapp.extensions.BaseFragment
+import com.example.common.base.BaseFragment
 import com.example.newsapp.register.R
 import com.example.newsapp.register.presentation.event.RegisterEvents
 import com.example.newsapp.register.presentation.state.RegisterState
 import com.example.newsapp.register.presentation.viewmodel.RegisterViewModel
-import com.example.newsapp.security.TokenStorageImpl
 import com.example.newsapp.security.UserTokenState
 import kotlinx.android.synthetic.main.fragment_register.*
-import org.koin.android.ext.android.inject
 import org.koin.android.viewmodel.ext.android.viewModel
 
 class RegisterFragment : BaseFragment(R.layout.fragment_register) {

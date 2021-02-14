@@ -2,7 +2,7 @@ package com.example.newsapp.register.domain.usecases
 
 import com.example.newsapp.register.domain.repository.Token
 import com.example.newsapp.register.domain.repository.UserRepository
-import com.example.newsapp.register.domain.utils.BaseUseCase
+import com.example.common.base.BaseUseCase
 
 class UserRegisterUseCase(
     private val userRepository: UserRepository

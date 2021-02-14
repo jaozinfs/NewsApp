@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/nav_graph"
-    app:startDestination="@id/navigation_register">
+    app:startDestination="@id/nav_graph_login"
+    android:id="@+id/nav_graph">
 
 
     <activity
@@ -11,4 +11,9 @@
         android:label="@string/title_register"
         />
 
+    <activity
+        android:id="@+id/nav_graph_login"
+        android:label="@string/title_login"
+        android:name="com.example.newsapp.login.presentation.LoginActivity"
+        />
 </navigation>

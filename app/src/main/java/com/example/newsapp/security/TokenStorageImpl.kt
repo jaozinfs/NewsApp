@@ -2,7 +2,7 @@ package com.example.newsapp.security
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.example.newsapp.extensions.asLiveData
+import com.example.common.extensions.asLiveData
 
 object TokenStorageImpl : TokenStorage {
 

@@ -4,7 +4,6 @@ plugins {
     id 'kotlin-android-extensions'
     id 'kotlin-kapt'
 }
-apply from: "${toolsPath}/dependencies.versions.gradle"
 
 android {
     compileSdkVersion 30
@@ -35,8 +34,7 @@ android {
 
 dependencies {
     implementation project(":app")
-    implementation project(":network")
-    implementation project(":userpreferences")
+
 
     implementation 'androidx.core:core-ktx:1.2.0'
     implementation 'androidx.appcompat:appcompat:1.1.0'
@@ -45,9 +43,6 @@ dependencies {
     implementation 'androidx.navigation:navigation-fragment-ktx:2.2.2'
     implementation 'androidx.navigation:navigation-ui-ktx:2.2.2'
 
-    implementation commonsVersions.values()
-    implementation networkDependencies.values()
-    implementation coreDependencies.values()
 
 
     testImplementation 'junit:junit:4.+'

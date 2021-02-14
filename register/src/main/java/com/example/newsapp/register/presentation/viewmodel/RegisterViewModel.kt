@@ -4,7 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
-import com.example.newsapp.extensions.asLiveData
+import com.example.common.extensions.asLiveData
 import com.example.newsapp.register.domain.usecases.GetUserSavedTokenUseCase
 import com.example.newsapp.register.domain.usecases.SaveRegisteredTokenUserCase
 import com.example.newsapp.register.domain.usecases.UserRegisterUseCase

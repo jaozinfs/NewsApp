@@ -10,20 +10,21 @@ import androidx.datastore.preferences.createDataStore
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.map
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
+import org.koin.core.parameter.parametersOf
 
-class UserPreferencesRepositoryRepositoryImpl(
-    private val context: Context
-) : UserPreferencesRepository {
+class UserPreferencesRepositoryImpl
+    : UserPreferencesRepository, KoinComponent {
     private val USER_PREFS_DATASTORE_NAME = "news_app_user_prefs"
 
     private object PreferencesKeys {
         val USER_TOKEN = stringPreferencesKey("user_token")
     }
 
-    private val dataStore: DataStore<Preferences> =
-        context.createDataStore(
-            name = USER_PREFS_DATASTORE_NAME
-        )
+    private val dataStore: DataStore<Preferences> by inject {
+        parametersOf(USER_PREFS_DATASTORE_NAME)
+    }
 
     override val userToken: Flow<UserTokenStore>
         get() = dataStore.data.catch {

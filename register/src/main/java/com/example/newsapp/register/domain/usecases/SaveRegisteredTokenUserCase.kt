@@ -1,7 +1,6 @@
 package com.example.newsapp.register.domain.usecases
 
-import com.example.newsapp.register.domain.repository.Token
-import com.example.newsapp.register.domain.utils.BaseUseCase
+import com.example.common.base.BaseUseCase
 import com.example.newsapp.userpreferences.UserPreferencesRepository
 
 class SaveRegisteredTokenUserCase(
