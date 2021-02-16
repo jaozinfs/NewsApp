@@ -1,10 +1,8 @@
 package com.example.common.base
 
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
-import com.example.common.UserTokenManager
 import com.example.common.security.TokenManager
 import com.example.common.security.UserAuthentication
 import org.koin.android.ext.android.inject
@@ -21,7 +19,7 @@ open class BaseAuthActivity(layoutId: Int) : AppCompatActivity(layoutId) {
     }
 
     private fun observeToken() {
-        userTokenManager.getToken().observe(this, Observer {token->
+        userTokenManager.tokenObservable.observe(this, Observer { token->
             checkAuthentication(token)
         })
     }

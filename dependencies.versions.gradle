@@ -3,6 +3,7 @@ ext {
     final materialComponentsVersion = '1.3.0'
     final navigationVersion = '2.3.3'
     final lifecycle_version = '2.2.0'
+    final paging_version = '3.0.0-alpha13'
 
     //networkVersions
     final retrofitVersion = '2.9.0'
@@ -30,8 +31,8 @@ ext {
             'materialComponents' : "com.google.android.material:material:$materialComponentsVersion",
             'navigation' : "androidx.navigation:navigation-fragment-ktx:$navigationVersion",
             'navigationKtx': "androidx.navigation:navigation-ui-ktx:$navigationVersion",
-            'navigationDynimic' : "androidx.navigation:navigation-dynamic-features-fragment:$navigationVersion"
-
+            'navigationDynimic' : "androidx.navigation:navigation-dynamic-features-fragment:$navigationVersion",
+            'paging3': "androidx.paging:paging-runtime:$paging_version"
     ]
 
     networkDependencies = [
