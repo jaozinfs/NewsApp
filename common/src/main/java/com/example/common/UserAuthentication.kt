@@ -1,4 +1,4 @@
-package com.example.common.security
+package com.example.common
 
 sealed class UserAuthentication {
     object TokenNotAuthenticated: UserAuthentication()

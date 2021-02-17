@@ -1,5 +1,6 @@
 package com.example.newsapp.home.di
 
+import com.example.newsapp.home.data.datasource.NewsDataSource
 import com.example.newsapp.home.data.mapper.NewsMapper
 import com.example.newsapp.home.data.mapper.NewsMapperImpl
 import com.example.newsapp.home.data.network.NewsApi
@@ -18,5 +19,6 @@ val homeModules = module {
         NewsRepositoryImpl(get(), get())
     }
     factory { GetHighlightsNewsUseCase(get()) }
-    viewModel { HomeViewModel(get()) }
+    factory { NewsDataSource(get()) }
+    viewModel { HomeViewModel(get(), get()) }
 }

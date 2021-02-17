@@ -3,8 +3,8 @@ package com.example.common.base
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
-import com.example.common.security.TokenManager
-import com.example.common.security.UserAuthentication
+import com.example.common.TokenManager
+import com.example.common.UserAuthentication
 import org.koin.android.ext.android.inject
 import timber.log.Timber
 
@@ -19,15 +19,15 @@ open class BaseAuthActivity(layoutId: Int) : AppCompatActivity(layoutId) {
     }
 
     private fun observeToken() {
-        userTokenManager.tokenObservable.observe(this, Observer { token->
+        userTokenManager.tokenObservable.observe(this, Observer { token ->
             checkAuthentication(token)
         })
     }
 
-    private fun checkAuthentication(token: String?){
-        when(userTokenManager.checkAuthenticationByToken(token)){
-            is UserAuthentication.TokenNotAuthenticated ->  gotoLogin()
-            is UserAuthentication.UserAuthenticated ->  autenticated()
+    private fun checkAuthentication(token: String?) {
+        when (userTokenManager.checkAuthenticationByToken(token)) {
+            is UserAuthentication.TokenNotAuthenticated -> gotoLogin()
+            is UserAuthentication.UserAuthenticated -> autenticated()
         }
     }
 
@@ -35,7 +35,7 @@ open class BaseAuthActivity(layoutId: Int) : AppCompatActivity(layoutId) {
         Timber.tag(TAG).d("Sem login")
     }
 
-    private fun autenticated(){
+    private fun autenticated() {
         Timber.tag(TAG).d("Com login")
     }
 }

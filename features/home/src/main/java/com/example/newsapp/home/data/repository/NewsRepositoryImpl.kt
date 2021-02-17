@@ -13,8 +13,8 @@ class NewsRepositoryImpl(
 
     override suspend fun getHighlightsNews(): List<News> = NetworkRequesterManager.request {
         newsApi.getHighlightsNews()
-    }.let { list ->
-        newsMapper.mapToDomain(list)
+    }.let { response ->
+        newsMapper.mapToDomain(response.data)
     }
 
     override suspend  fun getNews(): List<News> {

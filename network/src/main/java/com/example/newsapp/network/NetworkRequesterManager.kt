@@ -1,6 +1,7 @@
 package com.example.newsapp.network
 
-import com.example.newsapp.network.exceptions.BadRequestException
+import com.example.common.exceptions.BadRequestException
+import com.example.common.exceptions.BadTokenException
 import retrofit2.Response
 import java.net.UnknownHostException
 
@@ -11,11 +12,11 @@ object NetworkRequesterManager {
             "Tente novamente mais tarde."
         }
         return try {
-
             val response = apiRequest()
             response.takeIf { it.isSuccessful }?.body()
                 ?: throw when (response.code()) {
                     404 -> BadRequestException(response.code(), genericMessageException)
+                    401 -> BadTokenException(response.code(), genericMessageException)
                     else -> Exception("Error in request")
                 }
         } catch (error: Exception) {

@@ -1,15 +1,13 @@
-package com.example.common.domain
+package com.example.newsapp.local.domain
 
 import com.example.newsapp.userpreferences.UserPreferencesRepository
 import kotlinx.coroutines.flow.map
 
-class GetUserSavedTokenUseCase(
+class RemoveSavedTokenUseCase(
     private val userPreferencesRepository: UserPreferencesRepository
 ) {
 
-    fun execute() =
-        userPreferencesRepository.userToken.map {
-            it?.token
-        }
+    suspend fun execute() =
+        userPreferencesRepository.removeToken()
 
 }
