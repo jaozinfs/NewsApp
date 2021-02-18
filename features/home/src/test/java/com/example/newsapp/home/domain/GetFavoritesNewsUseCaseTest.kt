@@ -56,8 +56,8 @@ class GetFavoritesNewsUseCaseTest {
         coEvery { newsRepository.getFavoritesNews() } returns expectedLiveData
 
         //then
-        val favoritedNewsLiveData = getFavoritesNewsUseCase.execute()
-        assertEquals(expectedResponse, favoritedNewsLiveData.value)
+        val favoritesNewsLiveData = getFavoritesNewsUseCase.execute()
+        assertEquals(expectedResponse, favoritesNewsLiveData.value)
     }
 
 }
