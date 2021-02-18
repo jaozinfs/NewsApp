@@ -7,5 +7,5 @@ import com.example.newsapp.home.domain.NewsRepository
 class GetFavoritesNewsUseCase(
     private val newsRepository: NewsRepository
 ) {
-    fun execute(params: Any?): LiveData<List<News>> = newsRepository.getFavoritesNews()
+    fun execute(): LiveData<List<News>> = newsRepository.getFavoritesNews()
 }

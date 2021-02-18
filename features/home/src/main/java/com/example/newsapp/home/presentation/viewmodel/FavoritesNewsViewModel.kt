@@ -22,7 +22,7 @@ class FavoritesNewsViewModel(
     override val state: LiveData<FavoritesStates>
         get() = _state
 
-    val favoritesNews = getFavoritesNewsUseCase.execute(null).map {
+    val favoritesNews = getFavoritesNewsUseCase.execute().map {
         it.sortedByDescending { it.publishedAt }
     }
 

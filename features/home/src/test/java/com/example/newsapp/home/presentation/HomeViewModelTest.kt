@@ -117,7 +117,7 @@ class HomeViewModelTest {
         //then
         homeViewModel.handleEvent(HomeEvents.FavoriteNews(expectedNews))
 
-        coVerify {
+        verify {
             stateObserver.onChanged(HomeState.NewsSavedFavorite)
         }
     }
