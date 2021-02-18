@@ -85,7 +85,7 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         val id = item.itemId
         when (id) {
-            R.id.favorites ->             // do stuff
+            R.id.favorites ->            
                 goToFavoritesFragment()
             R.id.logout ->
                 logout()
