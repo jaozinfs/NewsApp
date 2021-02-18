@@ -10,6 +10,8 @@ import androidx.viewpager2.widget.ViewPager2
 import com.example.common.base.BaseFragment
 import com.example.common.exceptions.transformCaroucel
 import com.example.common.extensions.flipModuleFlow
+import com.example.common.navigator.NavigatorFeatures
+import com.example.common.navigator.navigateFeature
 import com.example.newsapp.home.R
 import com.example.newsapp.home.databinding.FragmentHomeBinding
 import com.example.newsapp.home.domain.News
@@ -85,6 +87,8 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
         when (id) {
             R.id.favorites ->             // do stuff
                 goToFavoritesFragment()
+            R.id.logout ->
+                logout()
         }
         return false
     }
@@ -190,5 +194,9 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
             super.onPageSelected(position)
             startSlide()
         }
+    }
+
+    private fun logout() {
+        homeViewModel.handleEvent(HomeEvents.Logout)
     }
 }

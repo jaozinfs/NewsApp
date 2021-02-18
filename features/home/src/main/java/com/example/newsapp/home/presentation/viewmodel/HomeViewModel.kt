@@ -83,6 +83,7 @@ class HomeViewModel(
         is HomeEvents.FavoriteNews -> {
             favoriteItem(event.news)
         }
+        HomeEvents.Logout -> logout()
     }
 
 
@@ -96,5 +97,11 @@ class HomeViewModel(
         is ReloadTypes.HighLightsNews -> getHighlightNews()
         is ReloadTypes.News -> reloadNews()
         is ReloadTypes.AllNews -> reloadAllNews()
+    }
+
+    private fun logout() {
+        viewModelScope.launch {
+            removeSavedTokenUseCase.execute()
+        }
     }
 }
