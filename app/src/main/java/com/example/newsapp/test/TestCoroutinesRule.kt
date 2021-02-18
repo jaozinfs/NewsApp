@@ -1,4 +1,4 @@
-package com.example.newsapp.base
+package com.example.newsapp.test
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi

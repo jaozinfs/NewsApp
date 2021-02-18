@@ -1,17 +1,16 @@
 package com.example.newsapp.home.presentation
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.liveData
-import com.example.newsapp.home.base.TestCoroutinesRule
-import com.example.newsapp.home.data.MockHighLights
+import com.example.newsapp.home.data.MocksNews
 import com.example.newsapp.home.domain.News
 import com.example.newsapp.home.domain.usecases.FavoriteNewsUseCase
 import com.example.newsapp.home.domain.usecases.GetFavoritesNewsUseCase
 import com.example.newsapp.home.presentation.event.FavoritesEvents
 import com.example.newsapp.home.presentation.state.FavoritesStates
 import com.example.newsapp.home.presentation.viewmodel.FavoritesNewsViewModel
+import com.example.newsapp.test.TestCoroutinesRule
 import io.mockk.MockKAnnotations
 import io.mockk.coEvery
 import io.mockk.coVerify
@@ -56,7 +55,7 @@ class FavoritesNewsViewModelTest {
 
     @Before
     fun setup() {
-        coEvery { getFavoritesNewsUseCase.execute() } returns liveData { emit(MockHighLights.mocks) }
+        coEvery { getFavoritesNewsUseCase.execute() } returns liveData { emit(MocksNews.mocks) }
         favoriteNewsViewModel = FavoritesNewsViewModel(
             getFavoritesNewsUseCase,
             favoriteNewsUseCase
@@ -77,7 +76,7 @@ class FavoritesNewsViewModelTest {
 
     @Test
     fun `when call favorite news should return state`() {
-        val expectedNews = MockHighLights.mocks.first()
+        val expectedNews = MocksNews.mocks.first()
 
         //when
         coEvery { favoriteNewsUseCase.execute(any()) } returns FavoriteNewsUseCase.FavoriteState.Saved
@@ -92,7 +91,7 @@ class FavoritesNewsViewModelTest {
 
     @Test
     fun `when observe news should change observer`() {
-        val expectedNews = MockHighLights.mocks
+        val expectedNews = MocksNews.mocks
 
         //when
         //then

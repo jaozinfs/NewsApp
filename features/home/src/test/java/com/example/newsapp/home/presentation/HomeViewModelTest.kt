@@ -3,8 +3,7 @@ package com.example.newsapp.home.presentation
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.Observer
 import com.example.common.base.execute
-import com.example.newsapp.home.base.TestCoroutinesRule
-import com.example.newsapp.home.data.MockHighLights
+import com.example.newsapp.home.data.MocksNews
 import com.example.newsapp.home.data.network.usecase.GetHighlightsNewsUseCase
 import com.example.newsapp.home.data.network.usecase.GetNewsUseCase
 import com.example.newsapp.home.domain.usecases.FavoriteNewsUseCase
@@ -14,6 +13,7 @@ import com.example.newsapp.home.presentation.viewmodel.HomeViewModel
 import com.example.newsapp.home.presentation.viewmodel.ReloadNewsManager
 import com.example.newsapp.home.presentation.viewmodel.ReloadNewsManagerImpl
 import com.example.newsapp.local.domain.RemoveSavedTokenUseCase
+import com.example.newsapp.test.TestCoroutinesRule
 import io.mockk.*
 import io.mockk.impl.annotations.MockK
 import io.mockk.impl.annotations.RelaxedMockK
@@ -83,7 +83,7 @@ class HomeViewModelTest {
     @Test
     fun `when call event fetch highlight news should observe state`() = runBlockingTest {
         //given
-        val expectedHighLightsNews = MockHighLights.mocks
+        val expectedHighLightsNews = MocksNews.mocks
         //when
         coEvery { getHighlightsNewsUseCase.execute() } returns expectedHighLightsNews
         //then
@@ -109,7 +109,7 @@ class HomeViewModelTest {
     @Test
     fun `when call event favorite news should update state with saved`() = runBlockingTest {
         //given
-        val expectedNews = MockHighLights.mocks.first()
+        val expectedNews = MocksNews.mocks.first()
 
         //when
         coEvery { favoriteNewsUseCase.execute(any()) } returns FavoriteNewsUseCase.FavoriteState.Saved

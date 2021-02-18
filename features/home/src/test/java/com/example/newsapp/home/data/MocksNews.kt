@@ -3,7 +3,7 @@ package com.example.newsapp.home.data
 import com.example.newsapp.home.domain.News
 import java.util.*
 
-object MockHighLights {
+object MocksNews {
     val mocks = listOf(
         News(
             "Teste 1",
