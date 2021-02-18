@@ -1,4 +1,4 @@
-package com.example.newsapp.base
+package com.example.newsapp.home.base
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -9,7 +9,7 @@ import org.junit.rules.TestWatcher
 import org.junit.runner.Description
 
 @ExperimentalCoroutinesApi
-class TestCoroutinesRule(private val testDispatcher: TestCoroutineDispatcher = TestCoroutineDispatcher()) :
+class TestCoroutinesRule(val testDispatcher: TestCoroutineDispatcher = TestCoroutineDispatcher()) :
     TestWatcher() {
     override fun starting(description: Description?) {
         super.starting(description)

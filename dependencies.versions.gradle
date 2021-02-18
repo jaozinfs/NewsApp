@@ -21,6 +21,7 @@ ext {
     //testVersions
     final mockKVersion = '1.10.6'
     final coreVersion = '1.1.1'
+    final coroutinesVersion = '1.3.1'
 
     coreDependencies = [
             'koin'        : "org.koin:koin-android:$koinVersion",
@@ -60,6 +61,8 @@ ext {
 
     testDependencies = [
             'mockK': "io.mockk:mockk:$mockKVersion",
-            'core': "android.arch.core:core-testing:$coreVersion"
+            'core': "android.arch.core:core-testing:$coreVersion",
+            'coroutineTest': "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutinesVersion"
+
     ]
 }
