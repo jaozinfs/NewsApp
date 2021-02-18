@@ -5,15 +5,17 @@ import com.example.newsapp.di.commonModules
 import com.example.newsapp.local.di.localModules
 import com.example.newsapp.network.di.networkModules
 import com.example.newsapp.userpreferences.di.userPreferencesModule
+import com.google.android.play.core.splitinstall.SplitInstallManager
 import com.google.android.play.core.splitinstall.SplitInstallManagerFactory
 import com.google.android.play.core.splitinstall.SplitInstallRequest
-import com.google.android.play.core.splitinstall.SplitInstallSessionState
-import com.google.android.play.core.splitinstall.SplitInstallStateUpdatedListener
+import org.koin.android.ext.android.inject
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 import timber.log.Timber
 
 class NewsAppApplication : Application() {
+    private val splitInstallManager: SplitInstallManager by inject()
+
     override fun onCreate() {
         super.onCreate()
         setupKoin()
@@ -34,15 +36,13 @@ class NewsAppApplication : Application() {
     }
 
     private fun setupModules() {
-        val splitInstallManager =
-        SplitInstallManagerFactory.create(this);
-        val request =
         SplitInstallRequest
             .newBuilder()
             .addModule(getString(R.string.module_login))
             .addModule(getString(R.string.module_register))
             .addModule(getString(R.string.module_home))
-            .build()
-        splitInstallManager.startInstall(request)
+            .build().apply {
+                splitInstallManager.startInstall(this)
+            }
     }
 }
