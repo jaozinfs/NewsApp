@@ -18,6 +18,10 @@ ext {
     final flowVersion = '1.4.2'
     final timberVersion = '4.7.1'
 
+    //testVersions
+    final mockKVersion = '1.10.6'
+    final coreVersion = '1.1.1'
+
     coreDependencies = [
             'koin'        : "org.koin:koin-android:$koinVersion",
             'flow'        : "org.jetbrains.kotlinx:kotlinx-coroutines-core:$flowVersion",
@@ -51,5 +55,11 @@ ext {
     ]
     localDependenciesKapt = [
             'roomCompiler': "androidx.room:room-compiler:$room_version",
+    ]
+
+
+    testDependencies = [
+            'mockK': "io.mockk:mockk:$mockKVersion",
+            'core': "android.arch.core:core-testing:$coreVersion"
     ]
 }

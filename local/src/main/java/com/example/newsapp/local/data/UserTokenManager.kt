@@ -25,7 +25,7 @@ object UserTokenManager : TokenManager, KoinComponent {
     }
 
     override fun checkAuthenticationByToken(token: String?): UserAuthentication =
-        UserAuthentication.UserAuthenticated.takeIf { token != null }
+        UserAuthentication.UserAuthenticated.takeIf { token != null && token!= "" }
             ?: UserAuthentication.TokenNotAuthenticated
 
 

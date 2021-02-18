@@ -4,6 +4,7 @@ import android.view.WindowManager
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.common.exceptions.BadTokenException
 import kotlinx.coroutines.launch
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
@@ -20,7 +21,7 @@ abstract class BaseViewModel<T, S> : ViewModel(), KoinComponent {
             call.invoke()
         }catch (error: Exception){
             Timber.e(error)
-            if(error is WindowManager.BadTokenException)
+            if(error is BadTokenException)
                 removeTokenUseCase?.invoke()
         }
     }

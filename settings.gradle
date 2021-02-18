@@ -1,9 +1,10 @@
+include ':app'
+include ':features:login'
+include ':features:register'
 include ':features:home'
 include ':common'
-include ':features:login'
 include ':userpreferences'
 include ':local'
 include ':network'
-include ':features:register'
-include ':app'
+
 rootProject.name = "NewsApp"

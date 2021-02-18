@@ -10,7 +10,6 @@ class GetUserSavedTokenUseCase(
 
     fun execute() =
         userPreferencesRepository.userTokenFlow.map {
-            Timber.d("AQUI : ${it?.token}")
             it?.token
         }
 

@@ -10,11 +10,11 @@ import coil.request.CachePolicy
 import com.example.newsapp.home.databinding.ItemNewsPagerBinding
 import com.example.newsapp.home.domain.News
 
-class FavoritesNewsAdapter : ListAdapter<News, FavoritesNewsAdapter.NewsViewHolder>(NewsDiffUtils) {
+class FavoritesNewsAdapter : ListAdapter<News, CommonNewsViewHolder>(NewsDiffUtils) {
     var favoriteClickListener: ((news: News) -> Unit)? = null
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NewsViewHolder =
-        NewsViewHolder(
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CommonNewsViewHolder =
+        CommonNewsViewHolder(
             ItemNewsPagerBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
@@ -23,22 +23,9 @@ class FavoritesNewsAdapter : ListAdapter<News, FavoritesNewsAdapter.NewsViewHold
         )
 
 
-    override fun onBindViewHolder(holder: NewsViewHolder, position: Int) {
-        holder.bindView(getItem(position) ?: return)
+    override fun onBindViewHolder(holder: CommonNewsViewHolder, position: Int) {
+        holder.bindView(getItem(position) ?: return, favoriteClickListener)
     }
 
-    inner class NewsViewHolder(private val itemNewsBinding: ItemNewsPagerBinding) :
-        RecyclerView.ViewHolder(itemNewsBinding.root) {
-
-        fun bindView(news: News) = with(itemNewsBinding) {
-            tvTitle.text = news.title
-            btFavorite.setOnClickListener {
-                favoriteClickListener?.invoke(news)
-            }
-            imvNewsImage.load(news.imageUrl) {
-                memoryCachePolicy(CachePolicy.ENABLED)
-            }
-        }
-    }
 
 }

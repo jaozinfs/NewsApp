@@ -30,6 +30,6 @@ val homeModules = module {
     factory { GetFavoritesNewsUseCase(get()) }
     factory { GetHighlightsNewsUseCase(get()) }
     factory { GetNewsUseCase(get()) }
-    viewModel { HomeViewModel(get(), get(), get(), get(), get(), get()) }
+    viewModel { HomeViewModel(get(), get(), get(), get(), get()) }
     viewModel { FavoritesNewsViewModel(get(), get()) }
 }

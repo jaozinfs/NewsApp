@@ -37,7 +37,7 @@ android {
         jvmTarget = '1.8'
     }
 
-    dynamicFeatures = [':features:register', ':features:login', ':features:home']
+    dynamicFeatures = [ ':features:login', ':features:register', ':features:home']
 }
 
 dependencies {
@@ -47,13 +47,14 @@ dependencies {
     api project(":common")
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    implementation 'androidx.core:core-ktx:1.2.0'
-    implementation 'androidx.appcompat:appcompat:1.1.0'
-    implementation 'com.google.android.material:material:1.1.0'
-    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+    implementation 'androidx.core:core-ktx:1.3.2'
+    implementation 'androidx.appcompat:appcompat:1.2.0'
+    implementation 'com.google.android.material:material:1.3.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
     api commonsVersions.values()
     api networkDependencies.values()
     api coreDependencies.values()
+    api testDependencies.values()
 
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'

@@ -1,5 +1,6 @@
 package com.example.newsapp.home.presentation.viewmodel
 
+import android.view.WindowManager
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
@@ -10,11 +11,11 @@ import com.example.newsapp.home.data.network.usecase.GetHighlightsNewsUseCase
 import com.example.newsapp.home.data.network.usecase.GetNewsUseCase
 import com.example.newsapp.home.domain.News
 import com.example.newsapp.home.domain.usecases.FavoriteNewsUseCase
-import com.example.newsapp.home.domain.usecases.GetFavoritesNewsUseCase
 import com.example.newsapp.home.presentation.event.HomeEvents
 import com.example.newsapp.home.presentation.state.HomeState
 import com.example.newsapp.local.domain.RemoveSavedTokenUseCase
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
@@ -23,7 +24,6 @@ class HomeViewModel(
     private val getHighlightsNewsUseCase: GetHighlightsNewsUseCase,
     private val reloadNewsManager: ReloadNewsManager,
     private val favoriteNewsUseCase: FavoriteNewsUseCase,
-    getFavoritesNewsUseCase: GetFavoritesNewsUseCase,
     getNewsUseCase: GetNewsUseCase
 ) : BaseViewModel<HomeEvents, HomeState>() {
     private val TAG = this@HomeViewModel::class.simpleName
@@ -36,11 +36,13 @@ class HomeViewModel(
     override val state: LiveData<HomeState>
         get() = _state
 
-    val newsListFlow = getNewsUseCase.execute(null).cachedIn(viewModelScope)
-    val favoritesNews = getFavoritesNewsUseCase.execute(null)
+    val newsListFlow = getNewsUseCase.execute(null).catch { e ->
+        if (e is WindowManager.BadTokenException)
+            removeTokenUseCase?.invoke()
+    }.cachedIn(viewModelScope)
 
     init {
-        observeReloadNews()
+        observeRefreshNews()
     }
 
     private fun reloadAllNews() {
@@ -51,13 +53,7 @@ class HomeViewModel(
 
     private fun getHighlightNews() {
         launchAuthenticated {
-            _state.value = HomeState.Loading
-            _state.value = try {
-                HomeState.FetchedHighLightsNews(getHighlightsNewsUseCase.execute())
-            } catch (error: Exception) {
-                HomeState.Error
-                throw error
-            }
+            _state.value = HomeState.FetchedHighLightsNews(getHighlightsNewsUseCase.execute())
         }
     }
 
@@ -73,7 +69,7 @@ class HomeViewModel(
     }
 
     private fun updateFavoriteState(state: FavoriteNewsUseCase.FavoriteState) {
-        _state.value = when(state) {
+        _state.value = when (state) {
             FavoriteNewsUseCase.FavoriteState.Saved -> HomeState.NewsSavedFavorite
             FavoriteNewsUseCase.FavoriteState.Removed -> HomeState.NewsRemovedFromFavorite
         }
@@ -90,8 +86,7 @@ class HomeViewModel(
     }
 
 
-
-    private fun observeReloadNews() = viewModelScope.launch {
+    private fun observeRefreshNews() = viewModelScope.launch {
         reloadNewsManager.reloadNewsFlow.collect {
             handleReloadType(it)
         }

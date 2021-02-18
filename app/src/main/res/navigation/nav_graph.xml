@@ -1,19 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    app:startDestination="@id/nav_graph_home"
+    app:startDestination="@id/nav_graph_login"
     android:id="@+id/nav_graph">
     <activity
         android:id="@+id/nav_graph_login"
         android:label="@string/title_login"
+        app:graphPackage="com.example.newsapp.login"
+        app:graphResName="login_navigation_graph"
+        app:moduleName="login"
         android:name="com.example.newsapp.login.presentation.LoginActivity"/>
-    <activity
-        android:id="@+id/navigation_register"
-        android:label="@string/title_register"
-        android:name="com.example.newsapp.register.presentation.view.RegisterActivity"
-        />
-    <activity
-        android:id="@+id/nav_graph_home"
-        android:label="@string/title_home"
-        android:name="com.example.newsapp.home.HomeActivity"/>
+
 </navigation>

@@ -97,9 +97,6 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
         state.observe(viewLifecycleOwner, Observer {
             handleState(it)
         })
-        favoritesNews.observe(viewLifecycleOwner, Observer {
-            Timber.d(it.toString())
-        })
     }
 
     private fun fetchHighLightsNews() {
@@ -111,11 +108,9 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
             showProgressDialog()
         }
         is HomeState.FetchedHighLightsNews -> {
-            hideProgressDialog()
             updateHighLightNews(state.news)
         }
         is HomeState.Error -> {
-            hideProgressDialog()
         }
         is HomeState.ReloadNews -> {
             getNews()

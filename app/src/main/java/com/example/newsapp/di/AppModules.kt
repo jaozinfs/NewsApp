@@ -8,6 +8,7 @@ import com.example.newsapp.security.TokenStorage
 import com.example.newsapp.security.TokenStorageImpl
 import com.example.newsapp.userpreferences.UserPreferencesRepository
 import com.example.newsapp.userpreferences.UserPreferencesRepositoryImpl
+import org.koin.android.viewmodel.dsl.viewModel
 import org.koin.dsl.bind
 import org.koin.dsl.module
 

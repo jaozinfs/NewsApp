@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import com.example.common.TokenManager
 import com.example.common.UserAuthentication
+import com.example.common.navigator.NavigatorFeatures
+import com.example.common.navigator.navigateFeature
 import org.koin.android.ext.android.inject
 import timber.log.Timber
 
@@ -32,7 +34,10 @@ open class BaseAuthActivity(layoutId: Int) : AppCompatActivity(layoutId) {
     }
 
     private fun gotoLogin() {
-        Timber.tag(TAG).d("Sem login")
+        navigateFeature {
+            navigatorFeatures = NavigatorFeatures.FEATURE_LOGIN
+        }
+        finish()
     }
 
     private fun autenticated() {
