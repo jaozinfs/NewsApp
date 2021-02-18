@@ -53,7 +53,8 @@ class HomeViewModel(
 
     private fun getHighlightNews() {
         launchAuthenticated {
-            _state.value = HomeState.FetchedHighLightsNews(getHighlightsNewsUseCase.execute())
+            val list = getHighlightsNewsUseCase.execute()
+            _state.value = HomeState.FetchedHighLightsNews(list)
         }
     }
 

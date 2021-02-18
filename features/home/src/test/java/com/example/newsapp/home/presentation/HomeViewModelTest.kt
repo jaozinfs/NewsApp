@@ -2,6 +2,7 @@ package com.example.newsapp.home.presentation
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.Observer
+import com.example.common.base.execute
 import com.example.newsapp.home.base.TestCoroutinesRule
 import com.example.newsapp.home.data.MockHighLights
 import com.example.newsapp.home.data.network.usecase.GetHighlightsNewsUseCase
@@ -18,7 +19,10 @@ import io.mockk.*
 import io.mockk.impl.annotations.MockK
 import io.mockk.impl.annotations.RelaxedMockK
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.test.runBlockingTest
+import org.junit.After
+import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -38,16 +42,15 @@ class HomeViewModelTest {
 
     @MockK
     private lateinit var removeSavedTokenUseCase: RemoveSavedTokenUseCase
-
     @MockK
     private lateinit var favoriteNewsUseCase: FavoriteNewsUseCase
-
     @RelaxedMockK
-    private lateinit var newsRepository: NewsRepository
-
     private var reloadNewsManager: ReloadNewsManager = ReloadNewsManagerImpl()
+    @RelaxedMockK
     private lateinit var getNewsUseCase: GetNewsUseCase
+    @RelaxedMockK
     private lateinit var getHighlightsNewsUseCase: GetHighlightsNewsUseCase
+
     private lateinit var homeViewModel: HomeViewModel
 
     @RelaxedMockK
@@ -56,8 +59,10 @@ class HomeViewModelTest {
 
     init {
         MockKAnnotations.init(this, relaxUnitFun = true)
-        getNewsUseCase = GetNewsUseCase(newsRepository)
-        getHighlightsNewsUseCase = GetHighlightsNewsUseCase(newsRepository)
+    }
+
+    @Before
+    fun setup() {
         homeViewModel = HomeViewModel(
             removeSavedTokenUseCase,
             getHighlightsNewsUseCase,
@@ -65,29 +70,30 @@ class HomeViewModelTest {
             favoriteNewsUseCase,
             getNewsUseCase
         )
+        homeViewModel.state.observeForever(stateObserver)
     }
 
+    @After
+    fun teardDown() {
+        homeViewModel.state.removeObserver(stateObserver)
+    }
 
     @Test
-    fun `when_call_event_fetch_highlight_news_should_observe_state`() =
-        testCoroutineRule.testDispatcher.runBlockingTest {
+    fun `when call event fetch highlight news should observe state`() = runBlockingTest {
             //given
             val expectedHighLightsNews = MockHighLights.getMock()
-            homeViewModel.state.observeForever(stateObserver)
             //when
-            coEvery { newsRepository.getHighlightsNews() } returns expectedHighLightsNews
-
-
+            coEvery { getHighlightsNewsUseCase.execute() } returns expectedHighLightsNews
             //then
             homeViewModel.handleEvent(HomeEvents.FetchHighLightNews)
+
             verify {
                 stateObserver.onChanged(HomeState.FetchedHighLightsNews(expectedHighLightsNews))
             }
         }
 
     @Test
-    fun `when_call_event_logout_should_usecase_remove_token_call`() =
-        testCoroutineRule.testDispatcher.runBlockingTest {
+    fun `when call even logout_should useCase remove token call`() = runBlockingTest {
             //given
             //when
             coEvery { removeSavedTokenUseCase.execute() } just runs
@@ -99,8 +105,7 @@ class HomeViewModelTest {
         }
 
     @Test
-    fun `when_call_event_favorite_news_should_update_state_with_saved`() =
-        testCoroutineRule.testDispatcher.runBlockingTest {
+    fun `when call event favorite news should update state with saved`() = runBlockingTest {
             //given
             val expectedNews = MockHighLights.getMock().first()
 
@@ -109,8 +114,11 @@ class HomeViewModelTest {
 
             //then
             homeViewModel.handleEvent(HomeEvents.FavoriteNews(expectedNews))
+
             coVerify {
                 stateObserver.onChanged(HomeState.NewsSavedFavorite)
             }
         }
+
+
 }

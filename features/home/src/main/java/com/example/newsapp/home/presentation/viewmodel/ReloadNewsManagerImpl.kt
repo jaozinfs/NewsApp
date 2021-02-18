@@ -9,6 +9,9 @@ import kotlin.time.seconds
 
 @OptIn(ExperimentalTime::class)
 class ReloadNewsManagerImpl : ReloadNewsManager {
+    private val job: CoroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.Default)
+
+
     private var DELAY_TIMER = 30.seconds
     private var policyReload: ReloadTypes = ReloadTypes.AllNews
     private val reloadNewsSharedFlow = MutableSharedFlow<ReloadTypes>()
@@ -31,11 +34,11 @@ class ReloadNewsManagerImpl : ReloadNewsManager {
 
     //Global scope aqui não é perigoso pois quem escutar tera seu proprio escopo,
     //um exemplo bom seria viewmodelScope.
-    private fun initReload() = GlobalScope.launch {
+    private fun initReload() = job.launch {
         do {
             delay(DELAY_TIMER)
-            reloadNewsSharedFlow.emit(policyReload)
-        }while (coroutineContext.isActive)
+            reloadNewsSharedFlow.tryEmit(policyReload)
+        } while (coroutineContext.isActive)
     }
 
 
