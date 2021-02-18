@@ -4,7 +4,7 @@ import com.example.newsapp.home.domain.News
 import java.util.*
 
 object MockHighLights {
-    fun getMock() = listOf(
+    val mocks = listOf(
         News(
             "Teste 1",
             "Teste desc 1",

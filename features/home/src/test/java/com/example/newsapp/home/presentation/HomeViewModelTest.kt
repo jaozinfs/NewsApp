@@ -83,7 +83,7 @@ class HomeViewModelTest {
     @Test
     fun `when call event fetch highlight news should observe state`() = runBlockingTest {
         //given
-        val expectedHighLightsNews = MockHighLights.getMock()
+        val expectedHighLightsNews = MockHighLights.mocks
         //when
         coEvery { getHighlightsNewsUseCase.execute() } returns expectedHighLightsNews
         //then
@@ -109,7 +109,7 @@ class HomeViewModelTest {
     @Test
     fun `when call event favorite news should update state with saved`() = runBlockingTest {
         //given
-        val expectedNews = MockHighLights.getMock().first()
+        val expectedNews = MockHighLights.mocks.first()
 
         //when
         coEvery { favoriteNewsUseCase.execute(any()) } returns FavoriteNewsUseCase.FavoriteState.Saved

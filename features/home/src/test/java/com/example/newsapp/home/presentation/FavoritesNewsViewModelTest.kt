@@ -1,6 +1,7 @@
 package com.example.newsapp.home.presentation
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.liveData
 import com.example.newsapp.home.base.TestCoroutinesRule
@@ -55,7 +56,7 @@ class FavoritesNewsViewModelTest {
 
     @Before
     fun setup() {
-        coEvery { getFavoritesNewsUseCase.execute() } returns liveData { emit(MockHighLights.getMock()) }
+        coEvery { getFavoritesNewsUseCase.execute() } returns liveData { emit(MockHighLights.mocks) }
         favoriteNewsViewModel = FavoritesNewsViewModel(
             getFavoritesNewsUseCase,
             favoriteNewsUseCase
@@ -76,7 +77,7 @@ class FavoritesNewsViewModelTest {
 
     @Test
     fun `when call favorite news should return state`() {
-        val expectedNews = MockHighLights.getMock().first()
+        val expectedNews = MockHighLights.mocks.first()
 
         //when
         coEvery { favoriteNewsUseCase.execute(any()) } returns FavoriteNewsUseCase.FavoriteState.Saved
@@ -91,7 +92,7 @@ class FavoritesNewsViewModelTest {
 
     @Test
     fun `when observe news should change observer`() {
-        val expectedNews = MockHighLights.getMock()
+        val expectedNews = MockHighLights.mocks
 
         //when
         //then
