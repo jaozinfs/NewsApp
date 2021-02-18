@@ -1,3 +1,8 @@
 package com.example.newsapp.home.presentation.event
 
-sealed class HomeEvents
+import com.example.newsapp.home.domain.News
+
+sealed class HomeEvents {
+    class FavoriteNews(val news: News) : HomeEvents()
+    object FetchHighLightNews : HomeEvents()
+}

@@ -6,6 +6,14 @@
  >
     <fragment
         android:id="@+id/navigation_home"
-        android:name="com.example.newsapp.home.HomeFragment"
-        tools:layout="@layout/fragment_home"/>
+        android:name="com.example.newsapp.home.presentation.fragments.HomeFragment"
+        tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/action_navigation_home_to_navigation_favorites"
+            app:destination="@id/navigation_favorites" />
+    </fragment>
+    <fragment
+        android:id="@+id/navigation_favorites"
+        android:name="com.example.newsapp.home.presentation.fragments.FavoritesNewsFragment"
+        tools:layout="@layout/fragment_favorites"/>
 </navigation>

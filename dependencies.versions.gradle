@@ -4,6 +4,7 @@ ext {
     final navigationVersion = '2.3.3'
     final lifecycle_version = '2.2.0'
     final paging_version = '3.0.0-alpha13'
+    final coil_version = '1.1.1'
 
     //networkVersions
     final retrofitVersion = '2.9.0'
@@ -11,38 +12,44 @@ ext {
 
     //localVersions
     final dataStoreVersion = '1.0.0-alpha06'
+    final room_version = '2.2.6'
 
     //coreVersions
     final flowVersion = '1.4.2'
     final timberVersion = '4.7.1'
 
     coreDependencies = [
-            'koin' : "org.koin:koin-android:$koinVersion",
-            'flow' : "org.jetbrains.kotlinx:kotlinx-coroutines-core:$flowVersion",
-            'timber' : "com.jakewharton.timber:timber:$timberVersion",
-            'livedata-ktx' : "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version",
+            'koin'        : "org.koin:koin-android:$koinVersion",
+            'flow'        : "org.jetbrains.kotlinx:kotlinx-coroutines-core:$flowVersion",
+            'timber'      : "com.jakewharton.timber:timber:$timberVersion",
+            'livedata-ktx': "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version",
+            'coil'        : "io.coil-kt:coil:$coil_version"
     ]
 
     commonsVersions = [
             //DI
-            'koinViewModel': "org.koin:koin-android-viewmodel:$koinVersion",
+            'koinViewModel'     : "org.koin:koin-android-viewmodel:$koinVersion",
 
             //UI
-            'materialComponents' : "com.google.android.material:material:$materialComponentsVersion",
-            'navigation' : "androidx.navigation:navigation-fragment-ktx:$navigationVersion",
-            'navigationKtx': "androidx.navigation:navigation-ui-ktx:$navigationVersion",
+            'materialComponents': "com.google.android.material:material:$materialComponentsVersion",
+            'navigation'        : "androidx.navigation:navigation-fragment-ktx:$navigationVersion",
+            'navigationKtx'     : "androidx.navigation:navigation-ui-ktx:$navigationVersion",
             'navigationDynimic' : "androidx.navigation:navigation-dynamic-features-fragment:$navigationVersion",
-            'paging3': "androidx.paging:paging-runtime:$paging_version"
+            'paging3'           : "androidx.paging:paging-runtime:$paging_version"
     ]
 
     networkDependencies = [
-            'retrofit' : "com.squareup.retrofit2:retrofit:$retrofitVersion",
-            'gjson': "com.squareup.retrofit2:converter-gson:$retrofitVersion",
+            'retrofit'              : "com.squareup.retrofit2:retrofit:$retrofitVersion",
+            'gjson'                 : "com.squareup.retrofit2:converter-gson:$retrofitVersion",
             'retrofitLogInterceptor': "com.squareup.okhttp3:logging-interceptor:$retrofitLoggingInterceptorVersion"
     ]
 
     localDependencies = [
-            'dataStore': "androidx.datastore:datastore-preferences:$dataStoreVersion"
-
+            'dataStore'   : "androidx.datastore:datastore-preferences:$dataStoreVersion",
+            'room'        : "androidx.room:room-runtime:$room_version",
+            'roomKtx'     : "androidx.room:room-ktx:$room_version"
+    ]
+    localDependenciesKapt = [
+            'roomCompiler': "androidx.room:room-compiler:$room_version",
     ]
 }

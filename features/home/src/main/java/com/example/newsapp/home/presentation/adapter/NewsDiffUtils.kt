@@ -1,4 +1,4 @@
-package com.example.newsapp.home.presentation.viewmodel
+package com.example.newsapp.home.presentation.adapter
 
 import androidx.recyclerview.widget.DiffUtil
 import com.example.newsapp.home.domain.News

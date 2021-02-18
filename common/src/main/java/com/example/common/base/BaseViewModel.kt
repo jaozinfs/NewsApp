@@ -15,9 +15,9 @@ abstract class BaseViewModel<T, S> : ViewModel(), KoinComponent {
     abstract fun handleEvent(event: T)
     open val removeTokenUseCase: (suspend () -> Unit)? = null
 
-    fun launchAuthenticated() = viewModelScope.launch {
+    fun launchAuthenticated(call : suspend () -> Unit) = viewModelScope.launch {
         try {
-
+            call.invoke()
         }catch (error: Exception){
             Timber.e(error)
             if(error is WindowManager.BadTokenException)
