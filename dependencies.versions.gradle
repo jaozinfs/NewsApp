@@ -61,8 +61,7 @@ ext {
 
     testDependencies = [
             'mockK': "io.mockk:mockk:$mockKVersion",
-            'core': "android.arch.core:core-testing:$coreVersion",
-            'coroutineTest': "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutinesVersion"
+            'core': "android.arch.core:core-testing:$coreVersion"
 
     ]
 }
