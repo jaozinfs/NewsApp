@@ -14,6 +14,7 @@ import kotlinx.coroutines.runBlocking
 import org.junit.After
 import org.junit.Before
 import org.junit.Rule
+import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
 import kotlin.experimental.ExperimentalTypeInference
@@ -62,42 +63,6 @@ class GetFavoritesNewsUseCaseTest {
         //then
         val favoritesNewsLiveData = getFavoritesNewsUseCase.execute()
         assertEquals(expectedResponse, favoritesNewsLiveData.value)
-    }
-    class Test {
-
-        fun main() {
-            listBuilder {
-                add("Hello world")
-            }
-        }
-
-
-
-        @OptIn(ExperimentalTypeInference::class)
-        fun <T> listBuilder(@BuilderInference scope: ListBuilderScope<T>.() -> Unit) : List<T>{
-            val mutbList = mutableListOf<T>()
-            scope.invoke(ListBuilderScopeImpl(mutbList))
-            return mutbList
-        }
-
-
-
-        
-        @OptIn(ExperimentalTypeInference::class)
-        class ListBuilderScopeImpl<T>(
-            private val parent: MutableList<T>
-        ) : ListBuilderScope<T >{
-            override fun add(element: T){
-                parent.add(element)
-            }
-        }
-
-
-        interface ListBuilderScope<T>{
-            fun add(element: T)
-        }
-
-
     }
 
 }
