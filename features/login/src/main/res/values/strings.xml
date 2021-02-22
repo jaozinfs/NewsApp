@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="login_hint_email">Email</string>
+    <string name="login_hint_password">Senha</string>
+    <string name="action_login">Logar</string>
+    <string name="title_login">Login</string>
+    <string name="action_register">Registrar</string>
+</resources>

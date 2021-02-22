@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="register_hint_name">Nome</string>
+    <string name="register_hint_emailaddress">Email</string>
+    <string name="register_hint_password">Senha</string>
+    <string name="register_birth_date">Data de nascimento</string>
+    <string name="title_register">register</string>
+    <string name="action_register">Registrar</string>
+</resources>

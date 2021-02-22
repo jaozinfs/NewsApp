@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:startDestination="@id/nav_login"
+    >
+    <fragment
+        android:id="@+id/nav_login"
+        android:name="com.example.newsapp.login.presentation.LoginFragment"
+        android:label="@string/title_register"
+        app:moduleName="login"
+        tools:layout="@layout/fragment_login" >
+            <action
+                android:id="@+id/action_login_to_register"
+                app:destination="@+id/navigation_register"/>
+    </fragment>
+
+</navigation>
