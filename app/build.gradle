@@ -36,7 +36,15 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
-
+    packagingOptions {
+        // for JNA and JNA-platform
+        exclude "META-INF/AL2.0"
+        exclude "META-INF/LGPL2.1"
+        // for byte-buddy
+        exclude "META-INF/licenses/ASM"
+        pickFirst "win32-x86-64/attach_hotspot_windows.dll"
+        pickFirst "win32-x86/attach_hotspot_windows.dll"
+    }
     dynamicFeatures = [ ':features:login', ':features:register', ':features:home']
 }
 
@@ -56,8 +64,9 @@ dependencies {
     api coreDependencies.values()
     api testDependencies.values()
 
-
     testImplementation 'junit:junit:4.+'
+
+
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 }

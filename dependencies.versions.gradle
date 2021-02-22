@@ -21,14 +21,16 @@ ext {
     //testVersions
     final mockKVersion = '1.10.6'
     final coreVersion = '1.1.1'
-    final coroutinesVersion = '1.3.1'
+    final coroutinesVersion = '1.4.2'
 
     coreDependencies = [
             'koin'        : "org.koin:koin-android:$koinVersion",
             'flow'        : "org.jetbrains.kotlinx:kotlinx-coroutines-core:$flowVersion",
             'timber'      : "com.jakewharton.timber:timber:$timberVersion",
             'livedata-ktx': "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version",
-            'coil'        : "io.coil-kt:coil:$coil_version"
+            'coil'        : "io.coil-kt:coil:$coil_version",
+            'coroutinesCore':  "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesVersion",
+            'coroutines': "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutinesVersion",
     ]
 
     commonsVersions = [
@@ -61,7 +63,7 @@ ext {
 
     testDependencies = [
             'mockK': "io.mockk:mockk:$mockKVersion",
-            'core': "android.arch.core:core-testing:$coreVersion"
-
+            'core': "android.arch.core:core-testing:$coreVersion",
+            'coroutinesTest': "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutinesVersion"
     ]
 }
