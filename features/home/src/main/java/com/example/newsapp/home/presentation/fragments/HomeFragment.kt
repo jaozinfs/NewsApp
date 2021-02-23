@@ -98,9 +98,11 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
     }
 
     private fun observeViewModel() = with(homeViewModel) {
-        state.observe(viewLifecycleOwner, Observer {
-            handleState(it)
-        })
+       viewLifecycleOwner.lifecycleScope.launchWhenCreated {
+           stateFlow.collect {
+               handleState(it)
+           }
+       }
     }
 
     private fun fetchHighLightsNews() {

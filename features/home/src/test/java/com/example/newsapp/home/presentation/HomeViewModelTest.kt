@@ -2,6 +2,7 @@ package com.example.newsapp.home.presentation
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.Observer
+import androidx.lifecycle.viewModelScope
 import com.example.common.base.execute
 import com.example.newsapp.home.data.MocksNews
 import com.example.newsapp.home.data.network.usecase.GetHighlightsNewsUseCase
@@ -18,6 +19,11 @@ import io.mockk.*
 import io.mockk.impl.annotations.MockK
 import io.mockk.impl.annotations.RelaxedMockK
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.InternalCoroutinesApi
+import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.receiveAsFlow
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.test.runBlockingTest
 import org.junit.After
 import org.junit.Before
@@ -72,7 +78,6 @@ class HomeViewModelTest {
             favoriteNewsUseCase,
             getNewsUseCase
         )
-        homeViewModel.state.observeForever(stateObserver)
     }
 
     @After
@@ -119,6 +124,36 @@ class HomeViewModelTest {
 
         verify {
             stateObserver.onChanged(HomeState.NewsSavedFavorite)
+        }
+    }
+
+    @InternalCoroutinesApi
+    @Test
+    fun `when call state should call onchange one time`() = runBlockingTest {
+        //given
+        val channel = Channel<HomeState>(Channel.UNLIMITED)
+        val channelLiveData = channel.receiveAsFlow()
+
+        val collector = spyk<suspend (HomeState) -> Unit>(
+            {
+                println("Teste: caolled")
+            }
+        )
+
+        homeViewModel.viewModelScope.launch {
+            channelLiveData.collect(collector)
+        }
+
+        homeViewModel.viewModelScope.launch {
+            channel.send(HomeState.Loading)
+        }
+        //simulate recreate view lifecycle
+        homeViewModel.viewModelScope.launch {
+            channelLiveData.collect(collector)
+        }
+
+        coVerify(exactly = 1) {
+            collector.invoke(HomeState.Loading)
         }
     }
 

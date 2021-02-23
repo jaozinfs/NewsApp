@@ -36,6 +36,8 @@ class HomeViewModel(
         get() = removeSavedTokenUseCase::execute
 
     private val stateChannel = Channel<HomeState>(UNLIMITED)
+    val stateFlow = stateChannel.receiveAsFlow()
+
     override val state: LiveData<HomeState>
         get() = stateChannel.receiveAsFlow().asLiveData()
 
