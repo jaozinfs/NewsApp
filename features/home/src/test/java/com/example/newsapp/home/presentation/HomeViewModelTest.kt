@@ -2,7 +2,6 @@ package com.example.newsapp.home.presentation
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.Observer
-import androidx.lifecycle.viewModelScope
 import com.example.common.base.execute
 import com.example.newsapp.home.data.MocksNews
 import com.example.newsapp.home.data.network.usecase.GetHighlightsNewsUseCase
@@ -15,14 +14,14 @@ import com.example.newsapp.home.presentation.viewmodel.ReloadNewsManager
 import com.example.newsapp.home.presentation.viewmodel.ReloadNewsManagerImpl
 import com.example.newsapp.local.domain.RemoveSavedTokenUseCase
 import com.example.newsapp.test.TestCoroutinesRule
+import com.example.newsapp.test.extensions.spykKCollector
 import io.mockk.*
 import io.mockk.impl.annotations.MockK
 import io.mockk.impl.annotations.RelaxedMockK
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.InternalCoroutinesApi
-import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.test.runBlockingTest
 import org.junit.After
@@ -131,30 +130,33 @@ class HomeViewModelTest {
     @Test
     fun `when call state should call onchange one time`() = runBlockingTest {
         //given
-        val channel = Channel<HomeState>(Channel.UNLIMITED)
-        val channelLiveData = channel.receiveAsFlow()
-
-        val collector = spyk<suspend (HomeState) -> Unit>(
-            {
-                println("Teste: caolled")
-            }
-        )
-
-        homeViewModel.viewModelScope.launch {
-            channelLiveData.collect(collector)
+        val jobs = mutableListOf<Job>()
+        val collector = spykKCollector<HomeState>{
+            println("Test $it")
         }
 
-        homeViewModel.viewModelScope.launch {
-            channel.send(HomeState.Loading)
+        val expectedHighLightsNews = MocksNews.mocks
+
+        //when
+        coEvery { getHighlightsNewsUseCase.execute() } returns expectedHighLightsNews
+
+        launch {
+            homeViewModel.stateFlow.collect(collector)
+        }.also {
+            jobs.add(it)
         }
+        homeViewModel.handleEvent(HomeEvents.FetchHighLightNews)
         //simulate recreate view lifecycle
-        homeViewModel.viewModelScope.launch {
-            channelLiveData.collect(collector)
+        launch {
+            homeViewModel.stateFlow.collect(collector)
+        }.also {
+            jobs.add(it)
         }
 
         coVerify(exactly = 1) {
-            collector.invoke(HomeState.Loading)
+            collector.invoke(HomeState.FetchedHighLightsNews(expectedHighLightsNews))
         }
+        jobs.forEach { it.cancel() }
     }
 
 }

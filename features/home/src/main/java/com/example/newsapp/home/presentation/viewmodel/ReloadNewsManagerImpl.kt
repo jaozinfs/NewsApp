@@ -37,7 +37,7 @@ class ReloadNewsManagerImpl : ReloadNewsManager {
     private fun initReload() = job.launch {
         do {
             delay(DELAY_TIMER)
-            reloadNewsSharedFlow.tryEmit(policyReload)
+            reloadNewsSharedFlow.emit(policyReload)
         } while (coroutineContext.isActive)
     }
 
