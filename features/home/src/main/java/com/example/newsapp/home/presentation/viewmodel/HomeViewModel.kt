@@ -30,16 +30,12 @@ class HomeViewModel(
     private val favoriteNewsUseCase: FavoriteNewsUseCase,
     getNewsUseCase: GetNewsUseCase
 ) : BaseViewModel<HomeEvents, HomeState>() {
-    private val stateChannel = Channel<HomeState>(UNLIMITED)
-
-
     private val TAG = this@HomeViewModel::class.simpleName
-
-    private val reloadNewsJob: Job? = null
 
     override val removeTokenUseCase: (suspend () -> Unit)?
         get() = removeSavedTokenUseCase::execute
 
+    private val stateChannel = Channel<HomeState>(UNLIMITED)
     override val state: LiveData<HomeState>
         get() = stateChannel.receiveAsFlow().asLiveData()
 
