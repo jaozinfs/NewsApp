@@ -4,10 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.paging.PagingData
 import kotlinx.coroutines.flow.Flow
 
-interface NewsRepository {
-
-    suspend fun getHighlightsNews(): List<News>
-    fun getNews(): Flow<PagingData<News>>
+interface NewsLocalRepository {
     suspend fun favoriteNews(news: News)
     suspend fun removeFavoriteNews(news: News)
     suspend fun getNewsByUrl(url: String): News?

@@ -2,10 +2,10 @@ package com.example.newsapp.home.domain.usecases
 
 import com.example.common.base.BaseUseCase
 import com.example.newsapp.home.domain.News
-import com.example.newsapp.home.domain.NewsRepository
+import com.example.newsapp.home.domain.NewsLocalRepository
 
 class FavoriteNewsUseCase(
-    private val newsRepository: NewsRepository
+    private val newsRepository: NewsLocalRepository
 ) : BaseUseCase<News, FavoriteNewsUseCase.FavoriteState> {
 
     override suspend fun execute(params: News): FavoriteState {

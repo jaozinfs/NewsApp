@@ -9,7 +9,6 @@ import com.example.newsapp.home.data.datasource.NewsDataSource
 import com.example.newsapp.home.data.mapper.NewsMapper
 import com.example.newsapp.home.data.network.NewsApi
 import com.example.newsapp.home.domain.News
-import com.example.newsapp.home.domain.NewsRepository
 import com.example.newsapp.local.database.dao.NewsDao
 import com.example.newsapp.network.NetworkRequesterManager
 import kotlinx.coroutines.flow.Flow

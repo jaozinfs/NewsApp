@@ -2,20 +2,18 @@ package com.example.newsapp.home.presentation.viewmodel
 
 import android.view.WindowManager
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import androidx.paging.cachedIn
 import com.example.common.base.BaseViewModel
 import com.example.common.base.execute
-import com.example.newsapp.home.data.network.usecase.GetHighlightsNewsUseCase
-import com.example.newsapp.home.data.network.usecase.GetNewsUseCase
+import com.example.newsapp.home.domain.usecases.GetHighlightsNewsUseCase
+import com.example.newsapp.home.domain.usecases.GetNewsUseCase
 import com.example.newsapp.home.domain.News
 import com.example.newsapp.home.domain.usecases.FavoriteNewsUseCase
 import com.example.newsapp.home.presentation.event.HomeEvents
 import com.example.newsapp.home.presentation.state.HomeState
 import com.example.newsapp.local.domain.RemoveSavedTokenUseCase
-import kotlinx.coroutines.Job
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.channels.Channel.Factory.UNLIMITED
 import kotlinx.coroutines.flow.catch

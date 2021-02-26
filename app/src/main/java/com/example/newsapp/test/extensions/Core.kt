@@ -7,7 +7,7 @@ import kotlin.experimental.ExperimentalTypeInference
 
 
 @OptIn(ExperimentalTypeInference::class)
-fun <T> liveDataBuilder(@BuilderInference scope: LiveDataBuilderScope<T>.() -> Unit): LiveData<T> {
+inline fun <T> liveDataBuilder(@BuilderInference scope: LiveDataBuilderScope<T>.() -> Unit): LiveData<T> {
     val mutableLiveData = MutableLiveData<T>()
     scope.invoke(LiveDataBuilderScopeImpl(mutableLiveData))
     return mutableLiveData
@@ -26,7 +26,7 @@ interface LiveDataBuilderScope<T> {
     fun emit(value: T)
 }
 
-fun <T> spykKCollector(collect: (T)->Unit) = spyk<suspend (T) -> Unit>(
+fun <T> spykKCollector(collect: (T) -> Unit) = spyk<suspend (T) -> Unit>(
     {
         collect.invoke(it)
     }

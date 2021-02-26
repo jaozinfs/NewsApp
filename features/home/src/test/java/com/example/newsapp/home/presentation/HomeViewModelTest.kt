@@ -4,8 +4,8 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.Observer
 import com.example.common.base.execute
 import com.example.newsapp.home.data.MocksNews
-import com.example.newsapp.home.data.network.usecase.GetHighlightsNewsUseCase
-import com.example.newsapp.home.data.network.usecase.GetNewsUseCase
+import com.example.newsapp.home.domain.usecases.GetHighlightsNewsUseCase
+import com.example.newsapp.home.domain.usecases.GetNewsUseCase
 import com.example.newsapp.home.domain.usecases.FavoriteNewsUseCase
 import com.example.newsapp.home.presentation.event.HomeEvents
 import com.example.newsapp.home.presentation.state.HomeState
@@ -21,6 +21,7 @@ import io.mockk.impl.annotations.RelaxedMockK
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.InternalCoroutinesApi
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.test.runBlockingTest
@@ -159,4 +160,32 @@ class HomeViewModelTest {
         jobs.forEach { it.cancel() }
     }
 
+    @Test
+    fun `when call state should call onchansage one time`() = runBlockingTest {
+        //given
+        val jobs = mutableListOf<Job>()
+        val mutableStateFlow = MutableSharedFlow<String>()
+
+
+        launch {
+            mutableStateFlow.emit("Teste")
+        }.also {
+            jobs.add(it)
+        }
+        launch {
+            mutableStateFlow.collect {
+                println("Teste 1 message is: $it")
+            }
+        }.also {
+            jobs.add(it)
+        }
+        launch {
+            mutableStateFlow.collect {
+                println("Teste 2 message is: $it")
+            }
+        }.also {
+            jobs.add(it)
+        }
+
+    }
 }
